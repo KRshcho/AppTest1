@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppTest1.MainPage">
+
+    <Grid Margin="0,0,0,0"
+          RowDefinitions="50,40,40,40,40,40,40,40,*"
+          ColumnDefinitions="30,80,*,80,30">
+        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">
+            <Label Text="User Information Manager" FontSize="17"></Label>
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+            <Label Text="UserID" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" BackgroundColor="AliceBlue" Style="{StaticResource LabelNormalStyle}"></Label>
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3">
+            <Entry></Entry>
+        </Grid>
+        <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
+            <Label Text="UserName" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" BackgroundColor="AliceBlue"></Label>
+        </Grid>
+        <Grid Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="3">
+            <Entry></Entry>
+        </Grid>
+        <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
+            <Label Text="EMail" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" BackgroundColor="AliceBlue"></Label>
+        </Grid>
+        <Grid Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="3">
+            <Entry></Entry>
+        </Grid>
+        <Grid Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2">
+            <Label Text="Telephone" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" BackgroundColor="AliceBlue"></Label>
+        </Grid>
+        <Grid Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="3">
+            <Entry></Entry>
+        </Grid>
+        <Grid Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2">
+            <Label Text="RegistDate" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" BackgroundColor="AliceBlue"></Label>
+        </Grid>
+        <Grid Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="3">
+            <Entry></Entry>
+        </Grid>
+                    
+        <Grid Grid.Row="6" Grid.Column="0">
+            <Grid Margin="0,0,0,0"
+              RowDefinitions="40,*"
+              ColumnDefinitions="30, 100, 100,100, 30,*">
+                <Grid Grid.Row="0" Grid.Column="1">
+                    <Button Text="REGIST"></Button>
+                </Grid>
+                <Grid Grid.Row="0" Grid.Column="2">
+                    <Button Text="MODIFY"></Button>
+                </Grid>
+                <Grid Grid.Row="0" Grid.Column="3">
+                    <Button Text="DELETE"></Button>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</ContentPage>
