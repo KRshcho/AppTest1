@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AppTest1.Views;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -10,7 +11,8 @@ namespace AppTest1
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            //MainPage = new MainPage();
+            MainPage = new NavigationPage(new MemberView());
         }
 
         protected override void OnStart()
