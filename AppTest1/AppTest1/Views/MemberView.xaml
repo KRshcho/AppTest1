@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 x:Class="AppTest1.Views.MemberView"
+			 xmlns:vm="clr-namespace:AppTest1.ViewModels"
+			 xmlns:model="clr-namespace:AppTest1.Models"
+			 x:DataType="vm:MemberViewModel"
+			 x:Name="pg">
+
+	<ContentPage.BindingContext>
+		<vm:MemberViewModel x:Name="vm"/>
+	</ContentPage.BindingContext>
+
+	<ContentPage.Resources>
+		<Style TargetType="Grid">
+			<Setter Property="VisualStateManager.VisualStateGroups">
+				<VisualStateGroupList>
+					<VisualStateGroup x:Name="CommonStates">
+						<VisualState x:Name="Normal" />
+						<VisualState x:Name="Selected">
+							<VisualState.Setters>
+								<Setter Property="BackgroundColor" Value="LightSkyBlue" />
+								<!--<Setter Property="BackgroundColor" Value="#FAD246" />-->
+							</VisualState.Setters>
+						</VisualState>
+					</VisualStateGroup>
+				</VisualStateGroupList>
+			</Setter>
+		</Style>
+	</ContentPage.Resources>
+
+
+	<ContentPage.Content>
+		<Grid Margin="0,0,0,0"
+			  RowDefinitions="50,40,40,40,40,40,40,*"
+			  ColumnDefinitions="30,80,*,80,30">
+			<Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">
+				<Label Text="User Information Manager" FontSize="17"></Label>
+			</Grid>
+			<Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+				<Label Text="UserID" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" BackgroundColor="AliceBlue" Style="{StaticResource LabelNormalStyle}"></Label>
+			</Grid>
+			<Grid Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3">
+				<Entry Text="{Binding UserID}" IsEnabled="{Binding IsControlEnable}"/>
+			</Grid>
+			<Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
+				<Label Text="UserName" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" BackgroundColor="AliceBlue"></Label>
+			</Grid>
+			<Grid Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="3">
+				<Entry Text="{Binding UserName}" IsEnabled="{Binding IsControlEnable}"/>
+			</Grid>
+			<Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
+				<Label Text="EMail" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" BackgroundColor="AliceBlue"></Label>
+			</Grid>
+			<Grid Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="3">
+				<Entry Text="{Binding Email}" IsEnabled="{Binding IsControlEnable}"/>
+			</Grid>
+			<Grid Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2">
+				<Label Text="Telephone" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" BackgroundColor="AliceBlue"></Label>
+			</Grid>
+			<Grid Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="3">
+				<Entry Text="{Binding Telephone}" IsEnabled="{Binding IsControlEnable}"/>
+			</Grid>
+			<Grid Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2">
+				<Label Text="RegistDate" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" BackgroundColor="AliceBlue"></Label>
+			</Grid>
+			<Grid Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="3">
+				<Entry Text="{Binding RegistDate}" IsEnabled="{Binding IsControlEnable}"/>
+			</Grid>
+
+			<Grid Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="5">
+				<Grid Margin="0,0,0,0"
+					  RowDefinitions="40,*"
+					  ColumnDefinitions="*, *, *, *">
+					<Grid Grid.Row="0" Grid.Column="0">
+						<Button Text="REGIST" Command="{Binding RegistCommand}"/>
+					</Grid>
+					<Grid Grid.Row="0" Grid.Column="1">
+						<Button Text="MODIFY" Command="{Binding ModifyCommand}"/>
+					</Grid>
+					<Grid Grid.Row="0" Grid.Column="2">
+						<Button Text="DELETE" Command="{Binding DeleteCommand}"/>
+					</Grid>
+					<Grid Grid.Row="0" Grid.Column="3">
+						<Button Text="CLEAR" Command="{Binding ClearCommand}"/>
+					</Grid>
+				</Grid>
+			</Grid>
+
+			<CollectionView x:Name="collection"
+							Grid.Row="7"
+							Grid.ColumnSpan="5"
+							SelectionMode="Single"
+							SelectedItem="{Binding SelectedMember}"
+							ItemsSource="{Binding Members}">
+				<CollectionView.Header>
+					<Grid ColumnSpacing="0" RowSpacing="0" Margin="0,0,0,0" Padding="0,0,0,0" >
+						<Grid.RowDefinitions>
+							<RowDefinition Height="20"/>
+						</Grid.RowDefinitions>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="70"/>
+							<ColumnDefinition Width="*"/>
+							<ColumnDefinition Width="70"/>
+							<ColumnDefinition Width="70"/>
+							<ColumnDefinition Width="70"/>
+						</Grid.ColumnDefinitions>
+
+						<Grid Grid.Column="0" BackgroundColor="LightGray">
+							<Label Text="ID" VerticalOptions="Center" HorizontalOptions="Center"/>
+						</Grid>
+
+						<Grid Grid.Column="1" BackgroundColor="LightGray">
+							<Label Text="Name" VerticalOptions="Center" HorizontalOptions="Center"/>
+						</Grid>
+
+						<Grid Grid.Column="2" BackgroundColor="LightGray">
+							<Label Text="Email" VerticalOptions="Center" HorizontalOptions="Center"/>
+						</Grid>
+
+						<Grid Grid.Column="3" BackgroundColor="LightGray">
+							<Label Text="연락처" VerticalOptions="Center" HorizontalOptions="Center"/>
+						</Grid>
+
+						<Grid Grid.Column="4" BackgroundColor="LightGray">
+							<Label Text="등록일" VerticalOptions="Center" HorizontalOptions="Center"/>
+						</Grid>
+					</Grid>
+				</CollectionView.Header>
+
+				<CollectionView.ItemTemplate>
+					<DataTemplate x:DataType="model:Member">
+						<Grid ColumnSpacing="0" RowSpacing="0" Margin="0,0,0,0" Padding="0,0,0,0" >
+							<Grid.RowDefinitions>
+								<RowDefinition Height="40"/>
+							</Grid.RowDefinitions>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="70"/>
+								<ColumnDefinition Width="*"/>
+								<ColumnDefinition Width="70"/>
+								<ColumnDefinition Width="70"/>
+								<ColumnDefinition Width="70"/>
+							</Grid.ColumnDefinitions>
+
+							<Label Grid.Column="0" Text="{Binding UserID}" VerticalOptions="Center"/>
+							<Label Grid.Column="1" Text="{Binding UserName}" VerticalOptions="Center"/>
+							<Label Grid.Column="2" Text="{Binding Email}" VerticalOptions="Center"/>
+							<Label Grid.Column="3" Text="{Binding Telephone}" VerticalOptions="Center"/>
+							<Label Grid.Column="4" Text="{Binding RegistDate}" VerticalOptions="Center"/>
+						</Grid>
+					</DataTemplate>
+				</CollectionView.ItemTemplate>
+
+			</CollectionView>
+
+			<ActivityIndicator Grid.Row="7" 
+							   Grid.Column="0" 
+							   Grid.ColumnSpan="5"
+							   Color="Red"
+							   IsRunning="{Binding IsBusy}"  
+							   IsVisible="{Binding IsBusy}"
+							   VerticalOptions="Center"
+							   HorizontalOptions="Center">
+			</ActivityIndicator>
+		</Grid>
+	</ContentPage.Content>
+</ContentPage>
