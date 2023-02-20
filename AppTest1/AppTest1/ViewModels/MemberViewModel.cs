@@ -14,6 +14,7 @@ namespace AppTest1.ViewModels
         INavigation Navigation => Application.Current.MainPage.Navigation;
 
         private ObservableRangeCollection<Member> _members = new ObservableRangeCollection<Member>();
+        private ObservableRangeCollection<object> _selectedMembers = new ObservableRangeCollection<object>();
 
         //Command
         public ICommand RegistCommand { get; }
@@ -36,6 +37,7 @@ namespace AppTest1.ViewModels
         public string Telephone { get => this._telephone; set => SetProperty(ref this._telephone, value); }
         public string RegistDate { get => this._registDate; set => SetProperty(ref this._registDate, value); }
         public ObservableRangeCollection<Member> Members { get => _members; set => SetProperty(ref this._members, value); }
+        public ObservableRangeCollection<object> SelectedMembers { get => _selectedMembers; set => SetProperty(ref this._selectedMembers, value); }
 
         public Member SelectedMember
         {
@@ -130,9 +132,12 @@ namespace AppTest1.ViewModels
             (DeleteCommand as Command).ChangeCanExecute();
 
             //ToDo
-            if (SelectedMember != null)
+            if (SelectedMembers != null)
             {
-                Members.Remove(SelectedMember);
+                foreach (Member member in SelectedMembers)
+                {
+                    Members.Remove(member);
+                }                
             }
 
             IsControlEnable = true;

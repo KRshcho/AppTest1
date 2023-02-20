@@ -90,8 +90,8 @@
 			<CollectionView x:Name="collection"
 							Grid.Row="7"
 							Grid.ColumnSpan="5"
-							SelectionMode="Single"
-							SelectedItem="{Binding SelectedMember}"
+							SelectionMode="Multiple"
+							SelectedItems="{Binding SelectedMembers}"
 							ItemsSource="{Binding Members}">
 				<CollectionView.Header>
 					<Grid ColumnSpacing="0" RowSpacing="0" Margin="0,0,0,0" Padding="0,0,0,0" >
