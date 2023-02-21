@@ -2,6 +2,7 @@
 <Application xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AppTest1.App">
+    <!-- 여기다 선언해놓으면 모든 xaml 파일에서 사용 가능-->
     <Application.Resources>
         <ResourceDictionary>
             <Style x:Key="LabelNormalStyle" TargetType="Label">
