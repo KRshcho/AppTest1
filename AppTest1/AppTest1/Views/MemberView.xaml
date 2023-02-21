@@ -4,11 +4,12 @@
 			 x:Class="AppTest1.Views.MemberView"
 			 xmlns:vm="clr-namespace:AppTest1.ViewModels"
 			 xmlns:model="clr-namespace:AppTest1.Models"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"   
 			 x:DataType="vm:MemberViewModel"
 			 x:Name="pg">
 
 	<ContentPage.BindingContext>
-		<vm:MemberViewModel x:Name="vm"/>
+		<vm:MemberViewModel x:Name="viewmodel"/>
 	</ContentPage.BindingContext>
 
 	<ContentPage.Resources>
@@ -87,11 +88,15 @@
 				</Grid>
 			</Grid>
 
-			<CollectionView x:Name="collection"
+            <!--SelectionMode="Multiple"일 경우는 SelectedItem 값이 null -->
+            <CollectionView x:Name="MyCollectionView"
 							Grid.Row="7"
 							Grid.ColumnSpan="5"
 							SelectionMode="Multiple"
+                            SelectionChangedCommand="{Binding SelectionChangedCommand}"
+                            SelectionChangedCommandParameter="{Binding SelectedItem, Source={x:Reference MyCollectionView}}"
 							SelectedItems="{Binding SelectedMembers}"
+                            SelectedItem="{Binding SelectedMember}"
 							ItemsSource="{Binding Members}">
 				<CollectionView.Header>
 					<Grid ColumnSpacing="0" RowSpacing="0" Margin="0,0,0,0" Padding="0,0,0,0" >
@@ -130,7 +135,7 @@
 
 				<CollectionView.ItemTemplate>
 					<DataTemplate x:DataType="model:Member">
-						<Grid ColumnSpacing="0" RowSpacing="0" Margin="0,0,0,0" Padding="0,0,0,0" >
+						<Grid ColumnSpacing="0" RowSpacing="0" Margin="0,0,0,0" Padding="0,0,0,0">
 							<Grid.RowDefinitions>
 								<RowDefinition Height="40"/>
 							</Grid.RowDefinitions>
@@ -142,11 +147,27 @@
 								<ColumnDefinition Width="70"/>
 							</Grid.ColumnDefinitions>
 
-							<Label Grid.Column="0" Text="{Binding UserID}" VerticalOptions="Center"/>
-							<Label Grid.Column="1" Text="{Binding UserName}" VerticalOptions="Center"/>
+                            <Label Grid.Column="0" Text="{Binding UserID}" VerticalOptions="Center">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MemberViewModel}}, Path=RowTappedCommand}"		
+																  CommandParameter="{Binding .}"
+																  NumberOfTapsRequired="1"/>
+
+                                </Label.GestureRecognizers>
+                            </Label>
+                            
+                            
+                            <Label Grid.Column="1" Text="{Binding UserName}" VerticalOptions="Center"/>
 							<Label Grid.Column="2" Text="{Binding Email}" VerticalOptions="Center"/>
 							<Label Grid.Column="3" Text="{Binding Telephone}" VerticalOptions="Center"/>
 							<Label Grid.Column="4" Text="{Binding RegistDate}" VerticalOptions="Center"/>
+
+                            <!--기능은 작동하나 화면 선택이 안됨.-->
+                            <!--<Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MemberViewModel}}, Path=RowTappedCommand}"		
+																  CommandParameter="{Binding .}"
+																  NumberOfTapsRequired="1"/>
+                            </Grid.GestureRecognizers>-->
 						</Grid>
 					</DataTemplate>
 				</CollectionView.ItemTemplate>
