@@ -12,6 +12,24 @@
         <vm:MemberViewModel x:Name="vm"/>
     </ContentPage.BindingContext>
 
+    <ContentPage.Resources>
+        <Style TargetType="Grid">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="LightSkyBlue" />
+                                <!--<Setter Property="BackgroundColor" Value="#FAD246" />-->
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
+
     <Grid Margin="0,0,0,0"
           RowDefinitions="50,40,40,40,40,40,40,*"          
           ColumnDefinitions="30,80,*,80,30">

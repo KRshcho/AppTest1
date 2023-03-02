@@ -10,6 +10,9 @@ namespace AppTest1.ViewModels
 {
     public class ModifyMemberViewModel : BaseViewModel
     {
+        public delegate void RetunEventHandler(Member member);
+        public event RetunEventHandler RetunEvent;
+
         private ObservableRangeCollection<Member> _members = new ObservableRangeCollection<Member>();
 
         public ICommand CancelCommand { get; }
@@ -22,7 +25,7 @@ namespace AppTest1.ViewModels
         private string _email;
         private string _telephone;
         private string _registDate;
-        private Member _selectedMember;
+        //private Member _selectedMember;
 
         //Property
         public string UserID { get => this._userID; set => SetProperty(ref this._userID, value); }
@@ -31,29 +34,60 @@ namespace AppTest1.ViewModels
         public string Telephone { get => this._telephone; set => SetProperty(ref this._telephone, value); }
         public string RegistDate { get => this._registDate; set => SetProperty(ref this._registDate, value); }
         public ObservableRangeCollection<Member> Members { get => _members; set => SetProperty(ref this._members, value); }
-        public Member SelectedMember
-        {
-            get => _selectedMember;
-            set
-            {
-                SetProperty(ref this._selectedMember, value);
+        //public Member SelectedMember
+        //{
+        //    get => _selectedMember;
+        //    set
+        //    {
+        //        SetProperty(ref this._selectedMember, value);
 
-                this.UserID = value.UserID;
-                this.UserName = value.UserName;
-                this.Email = value.Email;
-                this.Telephone = value.Telephone;
-                this.RegistDate = value.RegistDate;
-            }
+        //        this.UserID = value.UserID;
+        //        this.UserName = value.UserName;
+        //        this.Email = value.Email;
+        //        this.Telephone = value.Telephone;
+        //        this.RegistDate = value.RegistDate;
+        //    }
+        //}
+
+        //MemberViewModel memberViewModel = new MemberViewModel();
+
+        public ModifyMemberViewModel(Member member) 
+        {
+            //this.SelectedMember = SelectedMember;
+            this.UserID = member.UserID;
+            this.UserName = member.UserName;
+            this.Email = member.Email;
+            this.Telephone = member.Telephone;
+            this.RegistDate = member.RegistDate;
+
+            ModifyCommand = new Command<object>((obj) => Modify(obj), (obj) => IsControlEnable);
+            //DeleteCommand = new Command(() => memberViewModel.Delete(DeleteCommand), () => IsControlEnable);
+            CancelCommand = new Command<object>((obj) => Cancel(obj), (obj) => IsControlEnable);
         }
 
-        MemberViewModel memberViewModel = new MemberViewModel();
-
-        public ModifyMemberViewModel(Member SelectedMember) 
+        private void Modify(object obj)
         {
-            this.SelectedMember = SelectedMember;            
-            ModifyCommand = new Command(() => memberViewModel.Modify(ModifyCommand, this.SelectedMember), () => IsControlEnable);
-            DeleteCommand = new Command(() => memberViewModel.Delete(DeleteCommand), () => IsControlEnable);
-            CancelCommand = new Command<object>((obj) => Cancel(obj), (obj) => IsControlEnable);
+            IsControlEnable = false;
+            IsBusy = true;
+            (ModifyCommand as Command).ChangeCanExecute();
+
+            Member member = new Member()
+            {
+                UserID = this.UserID,
+                UserName = this.UserName,
+                Email = this.Email,
+                Telephone = this.Telephone,
+                RegistDate = this.RegistDate
+            };
+
+            RetunEvent?.Invoke(member); //콜했던 화면으로 데이터 전달
+
+            //팝업창 닫기
+            ((Xamarin.CommunityToolkit.UI.Views.Popup)obj).Dismiss(true);
+
+            IsControlEnable = true;
+            IsBusy = false;
+            (ModifyCommand as Command).ChangeCanExecute();
         }
 
         private void Cancel(object obj)
@@ -69,7 +103,6 @@ namespace AppTest1.ViewModels
             IsBusy = false;
             (CancelCommand as Command).ChangeCanExecute();
         }
-
         
     }
 }

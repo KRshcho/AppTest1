@@ -24,7 +24,7 @@ namespace AppTest1.ViewModels
         public ICommand RegistCommand { get; }
         public ICommand ModifyCommand { get; }
         public ICommand DeleteCommand { get; }
-        public ICommand CleareCommand { get; }        
+        public ICommand CleareCommand { get; }
         public ICommand OpenModifyCommand { get; }
 
         //local 변수
@@ -34,6 +34,7 @@ namespace AppTest1.ViewModels
         private string _telephone;
         private string _registDate;
         private Member _selectedMember;
+        private bool _isCallBack = false;
 
         //Property
         public string UserID { get => this._userID; set => SetProperty(ref this._userID, value); }
@@ -58,7 +59,7 @@ namespace AppTest1.ViewModels
             }
         }
 
-        
+
 
         /// <summary>
         /// 생성자에서 버튼 이벤트 초기화
@@ -80,15 +81,15 @@ namespace AppTest1.ViewModels
             (CleareCommand as Command).ChangeCanExecute();
 
             // 실제 동작 구현
-            this.UserID = string.Empty; 
+            this.UserID = string.Empty;
             this.UserName = string.Empty;
             this.Email = string.Empty;
             this.Telephone = string.Empty;
             this.RegistDate = string.Empty;
 
             // 버튼 이벤트 시에 항상 끝
-            IsControlEnable= true;
-            IsBusy= false;
+            IsControlEnable = true;
+            IsBusy = false;
             (CleareCommand as Command).ChangeCanExecute();
         }
 
@@ -109,20 +110,19 @@ namespace AppTest1.ViewModels
 
             Members.Add(member);
 
-            IsControlEnable= true;
-            IsBusy= false;
+            IsControlEnable = true;
+            IsBusy = false;
             (RegistCommand as Command).ChangeCanExecute();
         }
 
-        public void Modify(ICommand modifyCommand, Member editMember)
+        public void Modify(Member editMember)
         {
             IsControlEnable = false;
             IsBusy = true;
-            (modifyCommand as Command).ChangeCanExecute();
+            (ModifyCommand as Command).ChangeCanExecute();
 
             //ToDo
-            //var member = Members.FirstOrDefault(i => i.UserID == this.UserID);
-            var member = Members.FirstOrDefault(i => i.UserID == editMember.UserID);             
+            var member = Members.FirstOrDefault(i => i.UserID == this.UserID);
             if (member != null)
             {
                 member.UserName = this.UserName;
@@ -133,32 +133,70 @@ namespace AppTest1.ViewModels
 
             IsControlEnable = true;
             IsBusy = false;
-            (modifyCommand as Command).ChangeCanExecute();
+            (ModifyCommand as Command).ChangeCanExecute();
         }
 
-        public void Delete(ICommand deleteCommand)
+        //public void Delete(ICommand deleteCommand)
+        //{
+        //    IsControlEnable = false;
+        //    IsBusy = true;
+        //    (deleteCommand as Command).ChangeCanExecute();
+
+        //    //ToDo
+        //    if (SelectedMember != null)
+        //    {
+        //        Members.Remove(SelectedMember);
+        //    }
+
+        //    IsControlEnable = true;
+        //    IsBusy = false;
+        //    (deleteCommand as Command).ChangeCanExecute();
+        //}
+
+        public void OpenEditMemeberView()
         {
+            if (_isCallBack) return;
+
             IsControlEnable = false;
             IsBusy = true;
-            (deleteCommand as Command).ChangeCanExecute();
+            (OpenModifyCommand as Command).ChangeCanExecute();
 
-            //ToDo
-            if (SelectedMember != null)
-            {
-                Members.Remove(SelectedMember);
-            }
+            ModifyMemberViewModel vm = new ModifyMemberViewModel(SelectedMember);
+            vm.RetunEvent += Vm_RetunEvent;
+
+
+            ModifyMemberView page = new ModifyMemberView();
+            page.BindingContext = vm;
+            this.Navigation.ShowPopupAsync(page);
 
             IsControlEnable = true;
             IsBusy = false;
-            (deleteCommand as Command).ChangeCanExecute();
+            (OpenModifyCommand as Command).ChangeCanExecute();
         }
 
-        public void OpenEditMemeberView()
+        
+
+        private void Vm_RetunEvent(Member member)
+        {
+            _isCallBack = true;
+            //this.SelectedMember = member; //SelectionChangedCommand를 사용하기 대문에 무한 루프 발생
+
+            this.UserID = member.UserID;
+            this.UserName = member.UserName;
+            this.Email = member.Email;
+            this.Telephone = member.Telephone;
+            this.RegistDate = member.RegistDate;
+
+            var mem = Members.FirstOrDefault(i => i.UserID == member.UserID);
+            if (mem != null)
             {
-                ModifyMemberViewModel vm = new ModifyMemberViewModel(SelectedMember);
-                ModifyMemberView page = new ModifyMemberView();
-                page.BindingContext = vm;
-                this.Navigation.ShowPopupAsync(page);
+                mem.UserName = member.UserName;
+                mem.Email = member.Email;
+                mem.Telephone = member.Telephone;
+                mem.RegistDate = member.RegistDate;
             }
+
+            _isCallBack = false;
         }
+    }
 }
