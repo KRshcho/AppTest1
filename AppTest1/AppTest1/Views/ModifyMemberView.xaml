@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xct:Popup xmlns="http://xamarin.com/schemas/2014/forms" 
+           xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+           xmlns:local="clr-namespace:AppTest1.Views;assembly=AppTest1"
+           xmlns:xct="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit"
+           xmlns:xct2="http://xamarin.com/schemas/2020/toolkit"   
+           IsLightDismissEnabled="False"
+		   Size="{x:Static local:PopupSize.Small}"
+           x:Class="AppTest1.Views.ModifyMemberView">
+
+    <Grid Margin="0,0,0,0"
+          RowDefinitions="40,40,40,40,40,*"
+          ColumnDefinitions="30,80,*,80,30">
+        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+            <Label Text="UserID" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" BackgroundColor="AliceBlue" Style="{StaticResource LabelNormalStyle}"></Label>
+        </Grid>
+        <Grid Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="3">
+            <Entry Text="{Binding UserID}" IsEnabled="{Binding IsControlEnable}"></Entry>
+        </Grid>
+    </Grid>
+</xct:Popup>

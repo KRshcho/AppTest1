@@ -1,12 +1,140 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="AppTest1.Views.MemberView">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
-    </ContentPage.Content>
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:vm="clr-namespace:AppTest1.ViewModels"
+             xmlns:model="clr-namespace:AppTest1.Models"
+             x:DataType="vm:MemberViewModel"
+             x:Class="AppTest1.Views.MemberView"
+             x:Name="pg">
+    
+    <!-- ViewModel 바인딩-->
+    <ContentPage.BindingContext>
+        <vm:MemberViewModel x:Name="vm"/>
+    </ContentPage.BindingContext>
+
+    <Grid Margin="0,0,0,0"
+          RowDefinitions="50,40,40,40,40,40,40,*"          
+          ColumnDefinitions="30,80,*,80,30">
+        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">
+            <Label Text="User Information Manager" FontSize="20"></Label>
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+            <Label Text="UserID" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" BackgroundColor="AliceBlue" Style="{StaticResource LabelNormalStyle}"></Label>
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3">
+            <Entry Text="{Binding UserID}" IsEnabled="{Binding IsControlEnable}"></Entry>
+        </Grid>
+        <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
+            <Label Text="UserName" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" BackgroundColor="AliceBlue"></Label>
+        </Grid>
+        <Grid Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="3">
+            <Entry Text="{Binding UserName}" IsEnabled="{Binding IsControlEnable}"></Entry>
+        </Grid>
+        <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
+            <Label Text="Email" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" BackgroundColor="AliceBlue"></Label>
+        </Grid>
+        <Grid Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="3">
+            <Entry Text="{Binding Email}" IsEnabled="{Binding IsControlEnable}"></Entry>
+        </Grid>
+        <Grid Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2">
+            <Label Text="Telephone" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" BackgroundColor="AliceBlue"></Label>
+        </Grid>
+        <Grid Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="3">
+            <Entry Text="{Binding Telephone}" IsEnabled="{Binding IsControlEnable}"></Entry>
+        </Grid>
+        <Grid Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2">
+            <Label Text="RegistDate" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" BackgroundColor="AliceBlue"></Label>
+        </Grid>
+        <Grid Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="3">
+            <Entry Text="{Binding RegistDate}" IsEnabled="{Binding IsControlEnable}"></Entry>
+        </Grid>
+
+        <Grid Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="5">
+            <Grid Margin="0,0,0,0"
+                  RowDefinitions="40,*"
+                  ColumnDefinitions="*,*">
+                <Grid Grid.Row="0" Grid.Column="0">
+                    <Button Text="REGIST" Command="{Binding RegistCommand}"></Button>
+                </Grid>
+                <Grid Grid.Row="0" Grid.Column="1">
+                    <Button Text="Clear" Command="{Binding CleareCommand}"></Button>
+                </Grid>
+            </Grid>
+        </Grid>
+
+        <!--ItemsSource="{Binding Members} 바인딩 하지 않으면 header 목록 보이지 않음-->
+        <Grid Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="5">
+            <CollectionView x:Name="collection"
+                            SelectionMode="Single"                                                        
+                            SelectionChangedCommand="{Binding OpenModifyCommand}"                            
+                            ItemsSource="{Binding Members}">
+                <CollectionView.Header>
+                    <Grid Margin="0,0,0,0"
+                      ColumnSpacing="0"
+                      RowSpacing="0"
+                      RowDefinitions="20"
+                      ColumnDefinitions="70,*,70,70,70">
+                        <Grid Grid.Column="0" BackgroundColor="LightGray">
+                            <Label Text="ID" VerticalOptions="Center" HorizontalOptions="Center"/>
+                        </Grid>
+
+                        <Grid Grid.Column="1" BackgroundColor="LightGray">
+                            <Label Text="Name" VerticalOptions="Center" HorizontalOptions="Center"/>
+                        </Grid>
+
+                        <Grid Grid.Column="2" BackgroundColor="LightGray">
+                            <Label Text="Email" VerticalOptions="Center" HorizontalOptions="Center"/>
+                        </Grid>
+
+                        <Grid Grid.Column="3" BackgroundColor="LightGray">
+                            <Label Text="연락처" VerticalOptions="Center" HorizontalOptions="Center"/>
+                        </Grid>
+
+                        <Grid Grid.Column="4" BackgroundColor="LightGray">
+                            <Label Text="등록일" VerticalOptions="Center" HorizontalOptions="Center"/>
+                        </Grid>
+                    </Grid>
+                </CollectionView.Header>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Member">
+                        <Grid ColumnSpacing="0"
+                              RowSpacing="0"
+                              Margin="0,0,0,0"
+                              Padding="0,0,0,0"
+                              RowDefinitions="40"
+                              ColumnDefinitions="70,*,70,70,70">
+                            <Grid Grid.Row="0" Grid.Column="0">
+                                <Label Text="{Binding UserID}" VerticalOptions="Center"></Label>
+                            </Grid>
+                            <Grid Grid.Row="0" Grid.Column="1">
+                                <Label Text="{Binding UserName}" VerticalOptions="Center"></Label>
+                            </Grid>
+                            <Grid Grid.Row="0" Grid.Column="2">
+                                <Label Text="{Binding Email}" VerticalOptions="Center"></Label>
+                            </Grid>
+                            <Grid Grid.Row="0" Grid.Column="3">
+                                <Label Text="{Binding Telephone}" VerticalOptions="Center"></Label>
+                            </Grid>
+                            <Grid Grid.Row="0" Grid.Column="4">
+                                <Label Text="{Binding RegistDate}" VerticalOptions="Center"></Label>
+                            </Grid>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+        
+        <!-- 동작중이라는 표시 CollectionView 시작 점과 동일한 위치로 한다. 이 화면언 허상같은거라 뒤에 화면이 터치 됨-->
+        <ActivityIndicator Grid.Row="7"
+                               Grid.Column="0"
+                               Grid.ColumnSpan="5"
+                               Color="Red"
+                               IsRunning="{Binding IsBusy}"
+                               IsVisible="{Binding IsBusy}"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center">
+        </ActivityIndicator>
+        
+    </Grid>
 </ContentPage>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Xamarin.CommunityToolkit.ObjectModel;
+using Xamarin.Forms;
 
 namespace AppTest1.ViewModels
 {
@@ -10,6 +11,8 @@ namespace AppTest1.ViewModels
     /// </summary>
     public class BaseViewModel : ObservableObject
     {
+        public INavigation Navigation => Application.Current.MainPage.Navigation;
+
         public BaseViewModel() { }
 
         // 모든 뷰모델에서 공통적으로 사용하는 컨트롤

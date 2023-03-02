@@ -17,7 +17,7 @@ namespace AppTest1
             //MainPage = new MainPage();
             // 아래 MainPage는 프로젝트 생성시 만들어지는 MainPage.xaml이 아니라 Application 시작 페이지를 의미 (Application.Current.MainPage)
             // 시작하기 원하는 View를 지정한다.
-            MainPage = new NavigationPage(new MemberView());
+            MainPage = new NavigationPage(new MainView());
         }
 
         protected override void OnStart()

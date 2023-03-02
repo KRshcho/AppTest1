@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:vm="clr-namespace:AppTest1.ViewModels"
+             x:Class="AppTest1.Views.MainView">
+
+    <!-- ViewModel 바인딩-->
+    <ContentPage.BindingContext>
+        <vm:MainViewModel x:Name="vm"/>
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Content>
+        <Grid Margin="0,0,0,0"
+              RowDefinitions="*,40,*"
+              ColumnDefinitions="*">
+            <Label Grid.Row="0" Text="User Information Manager" VerticalOptions="End" HorizontalOptions="Center"></Label>
+            <Button Grid.Row="1" Text="Start" Command="{Binding StartCommand}"></Button>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
