@@ -2,6 +2,7 @@
 using AppTest1.Views;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.Extensions;
@@ -49,11 +50,11 @@ namespace AppTest1.ViewModels
             {
                 SetProperty(ref this._selectedMember, value);
 
-                this.UserID = value.UserID;
-                this.UserName = value.UserName;
-                this.Email = value.Email;
-                this.Telephone = value.Telephone;
-                this.RegistDate = value.RegistDate;
+                //this.UserID = value.UserID;
+                //this.UserName = value.UserName;
+                //this.Email = value.Email;
+                //this.Telephone = value.Telephone;
+                //this.RegistDate = value.RegistDate;
             }
         }
 
@@ -66,10 +67,12 @@ namespace AppTest1.ViewModels
         {
             CleareCommand = new Command(() => Clear(), () => IsControlEnable);
             RegistCommand = new Command(() => Regist(), () => IsControlEnable);
+            //ModifyCommand = new Command(() => Modify(), () => IsControlEnable);
+            //DeleteCommand = new Command(() => Delete(), () => IsControlEnable);
             OpenModifyCommand = new Command(() => OpenEditMemeberView(), () => IsControlEnable);
         }
 
-        private void Clear()
+        public void Clear()
         {
             // 버튼 이벤트 시에 항상 시작
             IsControlEnable = false;
@@ -89,7 +92,7 @@ namespace AppTest1.ViewModels
             (CleareCommand as Command).ChangeCanExecute();
         }
 
-        private void Regist()
+        public void Regist()
         {
             IsControlEnable = false;
             IsBusy = true;
@@ -111,12 +114,51 @@ namespace AppTest1.ViewModels
             (RegistCommand as Command).ChangeCanExecute();
         }
 
-        public void OpenEditMemeberView()
+        public void Modify(ICommand modifyCommand, Member editMember)
         {
-            ModifyMemberViewModel vm = new ModifyMemberViewModel();
-            ModifyMemberView page = new ModifyMemberView();
-            page.BindingContext = vm;
-            this.Navigation.ShowPopupAsync(page);
+            IsControlEnable = false;
+            IsBusy = true;
+            (modifyCommand as Command).ChangeCanExecute();
+
+            //ToDo
+            //var member = Members.FirstOrDefault(i => i.UserID == this.UserID);
+            var member = Members.FirstOrDefault(i => i.UserID == editMember.UserID);             
+            if (member != null)
+            {
+                member.UserName = this.UserName;
+                member.Email = this.Email;
+                member.Telephone = this.Telephone;
+                member.RegistDate = this.RegistDate;
+            }
+
+            IsControlEnable = true;
+            IsBusy = false;
+            (modifyCommand as Command).ChangeCanExecute();
         }
-    }
+
+        public void Delete(ICommand deleteCommand)
+        {
+            IsControlEnable = false;
+            IsBusy = true;
+            (deleteCommand as Command).ChangeCanExecute();
+
+            //ToDo
+            if (SelectedMember != null)
+            {
+                Members.Remove(SelectedMember);
+            }
+
+            IsControlEnable = true;
+            IsBusy = false;
+            (deleteCommand as Command).ChangeCanExecute();
+        }
+
+        public void OpenEditMemeberView()
+            {
+                ModifyMemberViewModel vm = new ModifyMemberViewModel(SelectedMember);
+                ModifyMemberView page = new ModifyMemberView();
+                page.BindingContext = vm;
+                this.Navigation.ShowPopupAsync(page);
+            }
+        }
 }

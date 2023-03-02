@@ -65,7 +65,8 @@
         <!--ItemsSource="{Binding Members} 바인딩 하지 않으면 header 목록 보이지 않음-->
         <Grid Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="5">
             <CollectionView x:Name="collection"
-                            SelectionMode="Single"                                                        
+                            SelectionMode="Single"          
+                            SelectedItem="{Binding SelectedMember}"
                             SelectionChangedCommand="{Binding OpenModifyCommand}"                            
                             ItemsSource="{Binding Members}">
                 <CollectionView.Header>

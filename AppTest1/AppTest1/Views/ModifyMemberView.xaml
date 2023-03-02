@@ -3,9 +3,7 @@
            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
            xmlns:local="clr-namespace:AppTest1.Views;assembly=AppTest1"
            xmlns:xct="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit"
-           xmlns:xct2="http://xamarin.com/schemas/2020/toolkit"   
-           IsLightDismissEnabled="False"
-		   Size="{x:Static local:PopupSize.Small}"
+           xmlns:xct2="http://xamarin.com/schemas/2020/toolkit"              
            x:Class="AppTest1.Views.ModifyMemberView">
 
     <Grid Margin="0,0,0,0"
@@ -16,6 +14,43 @@
         </Grid>
         <Grid Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="3">
             <Entry Text="{Binding UserID}" IsEnabled="{Binding IsControlEnable}"></Entry>
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+            <Label Text="UserName" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" BackgroundColor="AliceBlue" Style="{StaticResource LabelNormalStyle}"></Label>
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3">
+            <Entry Text="{Binding UserName}" IsEnabled="{Binding IsControlEnable}"></Entry>
+        </Grid>
+        <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
+            <Label Text="EMail" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" BackgroundColor="AliceBlue" Style="{StaticResource LabelNormalStyle}"></Label>
+        </Grid>
+        <Grid Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="3">
+            <Entry Text="{Binding Email}" IsEnabled="{Binding IsControlEnable}"></Entry>
+        </Grid>
+        <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
+            <Label Text="Telephone" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" BackgroundColor="AliceBlue" Style="{StaticResource LabelNormalStyle}"></Label>
+        </Grid>
+        <Grid Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="3">
+            <Entry Text="{Binding Telephone}" IsEnabled="{Binding IsControlEnable}"></Entry>
+        </Grid>
+        <Grid Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2">
+            <Label Text="RegistDate" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" BackgroundColor="AliceBlue" Style="{StaticResource LabelNormalStyle}"></Label>
+        </Grid>
+        <Grid Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="3">
+            <Entry Text="{Binding RegistDate}" IsEnabled="{Binding IsControlEnable}"></Entry>
+        </Grid>
+
+        <Grid Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="5">
+            <Grid Margin="0,0,0,0"
+                  RowDefinitions="40,*"
+                  ColumnDefinitions="*,*">
+                <Grid Grid.Row="0" Grid.Column="0">
+                    <Button Text="Modify" Command="{Binding ModifyCommand}"></Button>
+                </Grid>
+                <Grid Grid.Row="0" Grid.Column="1">
+                    <Button Text="Delete" Command="{Binding DeleteCommand}"></Button>
+                </Grid>
+            </Grid>
         </Grid>
     </Grid>
 </xct:Popup>
