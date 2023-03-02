@@ -16,6 +16,7 @@ namespace AppTest1.ViewModels
         public BaseViewModel() { }
 
         // 모든 뷰모델에서 공통적으로 사용하는 컨트롤
+        // push test
         bool isBusy = false;
         bool isEnabled = true;
         bool _isControlEnable = true;
