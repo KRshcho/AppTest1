@@ -161,9 +161,9 @@ namespace AppTest1.ViewModels
             IsBusy = true;
             (OpenModifyCommand as Command).ChangeCanExecute();
 
+            // 호출하는 viewModel에 returnEvent를 할당 할 수 있음
             ModifyMemberViewModel vm = new ModifyMemberViewModel(SelectedMember);
-            vm.RetunEvent += Vm_RetunEvent;
-
+            vm.RetunEvent += Vm_RetunEvent;            
 
             ModifyMemberView page = new ModifyMemberView();
             page.BindingContext = vm;
@@ -176,7 +176,7 @@ namespace AppTest1.ViewModels
 
         
 
-        private void Vm_RetunEvent(Member member)
+        private void Vm_RetunEvent(Member member, string feature)
         {
             _isCallBack = true;
             //this.SelectedMember = member; //SelectionChangedCommand를 사용하기 대문에 무한 루프 발생
@@ -188,13 +188,29 @@ namespace AppTest1.ViewModels
             this.RegistDate = member.RegistDate;
 
             var mem = Members.FirstOrDefault(i => i.UserID == member.UserID);
-            if (mem != null)
+            if (feature == "modi")
             {
-                mem.UserName = member.UserName;
-                mem.Email = member.Email;
-                mem.Telephone = member.Telephone;
-                mem.RegistDate = member.RegistDate;
+                if (mem != null)
+                {
+                    mem.UserName = member.UserName;
+                    mem.Email = member.Email;
+                    mem.Telephone = member.Telephone;
+                    mem.RegistDate = member.RegistDate;
+                }
             }
+            else if (feature == "del")
+            {
+                if (mem != null)
+                {
+                    mem.UserName = member.UserName;
+                    mem.Email = member.Email;
+                    mem.Telephone = member.Telephone;
+                    mem.RegistDate = member.RegistDate;
+                }
+
+                Members.Remove(mem);
+            }
+            else { }
 
             _isCallBack = false;
         }

@@ -4,6 +4,10 @@
              xmlns:vm="clr-namespace:AppTest1.ViewModels"
              x:Class="AppTest1.Views.MainView">
 
+    <NavigationPage.TitleView>
+        <Label Text="User Information Manager" TextColor="White" FontSize="Large" VerticalTextAlignment="Center"/>
+    </NavigationPage.TitleView>
+    
     <!-- ViewModel 바인딩-->
     <ContentPage.BindingContext>
         <vm:MainViewModel x:Name="vm"/>
