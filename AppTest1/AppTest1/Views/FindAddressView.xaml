@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:AppTest1.ViewModels"             
+             x:Class="AppTest1.Views.FindAddressView">
+
+    <NavigationPage.TitleView>
+        <Label Text="우편번호 조회" TextColor="White" FontSize="Large" VerticalTextAlignment="Center"/>
+    </NavigationPage.TitleView>
+
+    <!-- ViewModel 바인딩-->
+    <ContentPage.BindingContext>
+        <vm:FindAddressViewModel x:Name="vm"/>
+    </ContentPage.BindingContext>
+
+    <Grid Margin="0,0,0,0"
+          RowDefinitions="40,40,40,*"
+          ColumnDefinitions="50,*">
+        <Label Grid.Column="0" 
+               Grid.Row="0" 
+               HorizontalTextAlignment="Center" 
+               VerticalTextAlignment="Center"
+               FontSize="20" 
+               FontAttributes="Bold" 
+               Text="주소">
+        </Label>
+        <Entry Grid.Column="1" 
+               Grid.Row="0">
+        </Entry>
+        <Button Grid.Column="0" 
+                Grid.Row="1" 
+                Grid.ColumnSpan="2"
+                Text="조회">
+        </Button>
+        <CollectionView x:Name="collection"
+                        Grid.Column="0"
+                        Grid.Row="2"
+                        Grid.ColumnSpan="2"
+                        SelectionMode="Single"                                  
+                        ItemsSource="{Binding Address}">
+            <CollectionView.Header>
+                <Grid Margin="0,0,0,0"
+                      ColumnSpacing="0"
+                      RowSpacing="0"                      
+                      RowDefinitions="20"
+                      ColumnDefinitions="70,*,*">
+                    <Grid Grid.Column="0" BackgroundColor="LightGray">
+                        <Label Text="우편번호" VerticalOptions="Center" HorizontalOptions="Center"/>
+                    </Grid>
+
+                    <Grid Grid.Column="1" BackgroundColor="LightGray">
+                        <Label Text="도로명" VerticalOptions="Center" HorizontalOptions="Center"/>
+                    </Grid>
+
+                    <Grid Grid.Column="2" BackgroundColor="LightGray">
+                        <Label Text="지번" VerticalOptions="Center" HorizontalOptions="Center"/>
+                    </Grid>
+                </Grid>
+            </CollectionView.Header>
+        </CollectionView>
+    </Grid>
+    
+</ContentPage>

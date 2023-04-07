@@ -5,7 +5,7 @@
              x:Class="AppTest1.Views.MainView">
 
     <NavigationPage.TitleView>
-        <Label Text="User Information Manager" TextColor="White" FontSize="Large" VerticalTextAlignment="Center"/>
+        <Label Text="MainMenu" TextColor="White" FontSize="Large" VerticalTextAlignment="Center"/>
     </NavigationPage.TitleView>
     
     <!-- ViewModel 바인딩-->
@@ -15,10 +15,17 @@
     
     <ContentPage.Content>
         <Grid Margin="0,0,0,0"
-              RowDefinitions="*,40,*"
-              ColumnDefinitions="*">
-            <Label Grid.Row="0" Text="User Information Manager" VerticalOptions="End" HorizontalOptions="Center"></Label>
-            <Button Grid.Row="1" Text="Start" Command="{Binding StartCommand}"></Button>
+              RowDefinitions="40,40,*"
+              ColumnDefinitions="*,*">
+            <Label Grid.Row="0" Grid.Column="0" 
+                   Text="User Information Manager" VerticalOptions="End" HorizontalOptions="Center"></Label>
+            <Button Grid.Row="1" Grid.Column="0" 
+                    Text="Start" Command="{Binding StartUserCommand}"></Button>
+            <Label Grid.Row="0" Grid.Column="1" 
+                   Text="우편번호 조회" VerticalOptions="End" HorizontalOptions="Center"></Label>
+            <Button Grid.Row="1" 
+                    Grid.Column="1"
+                    Text="Start" Command="{Binding FindAddressCommand}"></Button>
         </Grid>
     </ContentPage.Content>
 </ContentPage>
