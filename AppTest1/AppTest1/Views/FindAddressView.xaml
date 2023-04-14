@@ -2,7 +2,10 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:AppTest1.ViewModels"             
-             x:Class="AppTest1.Views.FindAddressView">
+             xmlns:model="clr-namespace:AppTest1.Models"
+             x:DataType="vm:FindAddressViewModel"
+             x:Class="AppTest1.Views.FindAddressView"             
+             x:Name="pg">
 
     <NavigationPage.TitleView>
         <Label Text="우편번호 조회" TextColor="White" FontSize="Large" VerticalTextAlignment="Center"/>
@@ -25,19 +28,21 @@
                Text="주소">
         </Label>
         <Entry Grid.Column="1" 
-               Grid.Row="0">
+               Grid.Row="0" Text="{Binding Address}">
         </Entry>
         <Button Grid.Column="0" 
                 Grid.Row="1" 
                 Grid.ColumnSpan="2"
-                Text="조회">
+                Text="조회"
+                Command="{Binding GetDataCommand}">
         </Button>
         <CollectionView x:Name="collection"
                         Grid.Column="0"
                         Grid.Row="2"
+                        Grid.RowSpan="2"
                         Grid.ColumnSpan="2"
                         SelectionMode="Single"                                  
-                        ItemsSource="{Binding Address}">
+                        ItemsSource="{Binding PostOffice}">
             <CollectionView.Header>
                 <Grid Margin="0,0,0,0"
                       ColumnSpacing="0"
@@ -57,6 +62,27 @@
                     </Grid>
                 </Grid>
             </CollectionView.Header>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:PostOffice">
+                    <Grid Margin="0,0,0,0"
+                          ColumnSpacing="0"
+                            RowSpacing="0"
+                          RowDefinitions="40"
+                          ColumnDefinitions="70,*,*">
+                        <Label Grid.Column ="0" 
+                               Text="{Binding ZipNumber}" VerticalOptions="Center">
+                        </Label>
+                        <Label Grid.Column ="1" 
+                               Text="{Binding DoRo}" VerticalOptions="Center">
+                        </Label>
+                        <Label Grid.Column ="2" 
+                               Text="{Binding JiBuen}" VerticalOptions="Center">
+                        </Label>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            
         </CollectionView>
     </Grid>
     

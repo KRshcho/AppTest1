@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AppTest1.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,6 @@ namespace AppTest1.Views
 		public MainView ()
 		{
 			InitializeComponent ();
-		}
-	}
+		}        
+    }
 }
