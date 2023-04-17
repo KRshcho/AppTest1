@@ -7,7 +7,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppTest1.Android", "AppTest
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppTest1.iOS", "AppTest1\AppTest1.iOS\AppTest1.iOS.csproj", "{4F3EB69A-EE29-4191-8E45-1892300CADB8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppTest1", "AppTest1\AppTest1\AppTest1.csproj", "{52F8D998-A47E-4C91-AA6E-2C8569C6EC56}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppTest1", "AppTest1\AppTest1\AppTest1.csproj", "{52F8D998-A47E-4C91-AA6E-2C8569C6EC56}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "솔루션 항목", "솔루션 항목", "{20735C2E-D525-413F-B2E9-717DDAFB9368}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
