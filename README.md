@@ -20,3 +20,8 @@ ViewModels
  
 <*.xaml>
  xaml 파일은 앱 구동 시켜놓은 상태에서 수정하면 바로 적용되어 수정한 것을 바로 확인 가능
+ 
+AppTest1.Android
+ - AndroidManifest.xml
+ - htts가 기본연결이고 http 연결하려면 <application></application>에 아래 항목 추가
+ - android:usesCleartextTraffic="true"
